@@ -1,6 +1,5 @@
 public class Hotel {
     public String hotelName;
-    public int price;
     public int rating;
     public int weekdayPrice;
     public int weekendPrice;
@@ -13,14 +12,6 @@ public class Hotel {
 
     public void setHotelName(String hotelName) {
         this.hotelName = hotelName;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public int getRating() {
