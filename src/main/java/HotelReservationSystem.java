@@ -23,14 +23,17 @@ public class HotelReservationSystem {
         lakeWood.setHotelName("LAKE WOOD HOTEL");
         lakeWood.setWeekdayPrice(110);
         lakeWood.setWeekendPrice(90);
+        lakeWood.setRating(3);
 
         bridgeWood.setHotelName("BRIDE WOOD RESORT");
         bridgeWood.setWeekdayPrice(150);
         bridgeWood.setWeekendPrice(50);
+        bridgeWood.setRating(4);
 
         ridgeWood.setHotelName("RIDGE WOOD LUXURY MANEILA");
         ridgeWood.setWeekdayPrice(220);
         ridgeWood.setWeekendPrice(150);
+        ridgeWood.setRating(5);
 
         hotelList.add(lakeWood);
         hotelList.add(bridgeWood);
