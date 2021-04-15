@@ -10,12 +10,14 @@ public class HotelReservationTest {
         HotelReservationSystem newSystem = new HotelReservationSystem();
         newSystem.checkInDate = LocalDate.parse("2020-09-11");
         newSystem.checkOutDate = LocalDate.parse("2020-09-12");
+        newSystem.customerType = "reward";
+
         try {
             newSystem.findCheapestHotelWithInGivenTimeline();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
 
-        Assertions.assertEquals(newSystem.bestRatedHotel,newSystem.ridgeWood);
+        Assertions.assertEquals(newSystem.cheapestBestRatedHotel,newSystem.ridgeWood);
     }
 }
