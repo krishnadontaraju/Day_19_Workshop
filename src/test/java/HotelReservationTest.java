@@ -10,7 +10,7 @@ public class HotelReservationTest {
         HotelReservationSystem newSystem = new HotelReservationSystem();
         newSystem.checkInDate = LocalDate.parse("2020-09-11");
         newSystem.checkOutDate = LocalDate.parse("2020-09-12");
-        newSystem.customerType = "reward";
+        newSystem.customerType = "regular";
 
         try {
             newSystem.findCheapestHotelWithInGivenTimeline();
@@ -27,7 +27,7 @@ public class HotelReservationTest {
         newSystem.checkInDate = LocalDate.parse("2020-09-11");
         newSystem.checkOutDate = LocalDate.parse("2020-09-12");
 
-        newSystem.customerType = "rewardsssss";
+        newSystem.customerType = "regularsssss";
 
         try {
             newSystem.findCheapestHotelWithInGivenTimeline();
