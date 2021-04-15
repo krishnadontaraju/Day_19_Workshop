@@ -5,6 +5,7 @@ public class Hotel {
     public int weekendPrice;
     public int rewardWeekdayPrice;
     public int getRewardWeekendPrice;
+    public int fareForTheStay;
 
     public String getHotelName() {
         return hotelName;
@@ -52,5 +53,15 @@ public class Hotel {
 
     public void setGetRewardWeekendPrice(int getRewardWeekendPrice) {
         this.getRewardWeekendPrice = getRewardWeekendPrice;
+    }
+
+    public int getFareForTheStay() {
+        return fareForTheStay;
+    }
+
+    @Override
+    public String toString() {
+        return  "Hotel Name ='" + hotelName + '\'' +
+                ", fareForTheStay =" + fareForTheStay;
     }
 }
