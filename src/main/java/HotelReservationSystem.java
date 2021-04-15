@@ -46,10 +46,10 @@ public class HotelReservationSystem {
         System.out.println("WHEN DO YOU PLAN TO CHECK-IN ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
-//        checkInDate = LocalDate.parse(fetch.next(), dateFormat);
+        checkInDate = LocalDate.parse(fetch.next(), dateFormat);
 
         System.out.println("WHEN DO YOU PLAN TO CHECK-OUT ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
-//        checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
+        checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
 
         for (Hotel hotels : hotelList) {
             fareCalculation(hotels, checkInDate, checkOutDate);
