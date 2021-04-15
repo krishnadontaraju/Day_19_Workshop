@@ -5,12 +5,12 @@ import java.time.LocalDate;
 
 public class HotelReservationTest {
     @Test
-    public void givenDateRange_whenAvailable_shouldReturnHotels(){
+    public void givenDateRange_whenAvailable_shouldReturnHotels() {
 
         HotelReservationSystem newSystem = new HotelReservationSystem();
         newSystem.checkInDate = LocalDate.parse("2020-09-11");
         newSystem.checkOutDate = LocalDate.parse("2020-09-12");
-        newSystem.customerType = "reward";
+        newSystem.customerType = "regular";
 
         try {
             newSystem.findCheapestHotelWithInGivenTimeline();
@@ -18,7 +18,7 @@ public class HotelReservationTest {
             e.printStackTrace();
         }
 
-        Assertions.assertEquals(newSystem.cheapestBestRatedHotel,newSystem.ridgeWood);
+        Assertions.assertEquals(newSystem.cheapestBestRatedHotel, newSystem.bridgeWood);
     }
 
     @Test
@@ -27,12 +27,11 @@ public class HotelReservationTest {
         newSystem.checkInDate = LocalDate.parse("2020-09-11");
         newSystem.checkOutDate = LocalDate.parse("2020-09-12");
 
-        newSystem.customerType = "rewardssss";
+        newSystem.customerType = "regularsssss";
 
         try {
             newSystem.findCheapestHotelWithInGivenTimeline();
-        }
-        catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
 
