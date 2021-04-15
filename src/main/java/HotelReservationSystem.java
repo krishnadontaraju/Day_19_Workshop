@@ -20,7 +20,7 @@ public class HotelReservationSystem {
     Hotel ridgeWood = new Hotel();
 
 
-    public void findCheapestHotelWithInGivenTimeline() throws NoSuchFieldException,IllegalInputException {
+    public void findCheapestHotelWithInGivenTimeline() throws NoSuchFieldException, IllegalInputException {
         lakeWood.setHotelName("LAKE WOOD HOTEL");
         lakeWood.setWeekdayPrice(110);
         lakeWood.setWeekendPrice(90);
@@ -47,7 +47,6 @@ public class HotelReservationSystem {
         hotelList.add(ridgeWood);
 
 
-
         System.out.println("WELCOME TO THE HOTEL RESERVATION");
         System.out.println("WHEN DO YOU PLAN TO CHECK-IN ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
 
@@ -55,7 +54,7 @@ public class HotelReservationSystem {
         checkInDate = LocalDate.parse(fetch.next(), dateFormat);
 
         try {
-            if(!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$",checkInDate.toString())))
+            if (!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$", checkInDate.toString())))
                 throw new IllegalInputException("YOUR CHECK IN DATE IS NOT CORRECT");
             if (checkInDate.toString() == "")
                 throw new EmptyInputException("YOUR CHECK IN DATE IS EMPTY");
@@ -73,8 +72,8 @@ public class HotelReservationSystem {
         checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
 
         try {
-        if(!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$",checkOutDate.toString())))
-            throw new IllegalInputException("YOUR CHECKOUT DATE IS NOT CORRECT");
+            if (!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$", checkOutDate.toString())))
+                throw new IllegalInputException("YOUR CHECKOUT DATE IS NOT CORRECT");
             if (checkOutDate.toString() == "")
                 throw new EmptyInputException("YOUR CHECKOUT DATE IS EMPTY");
             if (checkOutDate == null)
@@ -90,20 +89,18 @@ public class HotelReservationSystem {
         System.out.println("WHICH CUSTOMER CATEGORY DO YOU BELONG TO ? \nREWARD OR REGULAR");
         customerType = fetch.next();
 
-        if(!(Pattern.matches("^[A-Za-z]{6,7}$",customerType)))
+        if (!(Pattern.matches("^[A-Za-z]{6,7}$", customerType)))
             try {
                 throw new IllegalInputException("YOUR CUSTOMER CATEGORY IS NOT APPROPRIATE");
             } catch (IllegalInputException e) {
                 e.printStackTrace();
             }
 
-        if(customerType.toLowerCase(Locale.ROOT).equals("regular")) {
+        if (customerType.toLowerCase(Locale.ROOT).equals("regular")) {
             for (Hotel hotels : hotelList) {
                 fareCalculationForRegularCustomer(hotels, checkInDate, checkOutDate);
             }
-        }
-
-        else {
+        } else {
             for (Hotel hotels : hotelList) {
                 fareCalculationForRewardCustomer(hotels, checkInDate, checkOutDate);
             }
