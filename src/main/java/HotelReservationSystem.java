@@ -2,16 +2,16 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class HotelReservationSystem {
     Scanner fetch = new Scanner(System.in);
 
     List<Hotel> hotelList = new ArrayList<>();
-    Hotel bestRatedHotel;
+    String customerType;
+    Hotel cheapestBestRatedHotel;
     LocalDate checkInDate;
     LocalDate checkOutDate;
 
@@ -46,26 +46,78 @@ public class HotelReservationSystem {
         hotelList.add(bridgeWood);
         hotelList.add(ridgeWood);
 
+
+
         System.out.println("WELCOME TO THE HOTEL RESERVATION");
         System.out.println("WHEN DO YOU PLAN TO CHECK-IN ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
         checkInDate = LocalDate.parse(fetch.next(), dateFormat);
 
-        System.out.println("WHEN DO YOU PLAN TO CHECK-OUT ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
-       checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
-
-        for (Hotel hotels : hotelList) {
-            fareCalculation(hotels, checkInDate, checkOutDate);
+        if(!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$",checkInDate.toString()))){
+            System.out.println("SORRY,YOUR CHECK IN DATE'sINPUT IS NOT VALID");
+            System.exit(0);
         }
 
-        bestRatedHotel = hotelList.stream().max(Comparator.comparing(Hotel::getRating)).orElseThrow(NoSuchFieldException::new);
+        System.out.println("WHEN DO YOU PLAN TO CHECK-OUT ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
+        checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
 
-        System.out.println("\n\nTHE BEST RATED HOTEL FOR YOUR STAY IS");
-        System.out.println(bestRatedHotel);
+        if(!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$",checkInDate.toString()))){
+            System.out.println("SORRY,YOUR CHECK OUT DATE's INPUT IS NOT VALID");
+            System.exit(0);
+        }
+
+        System.out.println("WHICH CUSTOMER CATEGORY DO YOU BELONG TO ? \nREWARD OR REGULAR");
+        customerType = fetch.next();
+
+        if(!(Pattern.matches("^[A-Za-z]{6,7}$",customerType))){
+            System.out.println("SORRY,YOUR CUSTOMER CATEGORY IS NOT VALID");
+            System.exit(0);
+        }
+        
+        if(customerType.toLowerCase(Locale.ROOT).equals("regular")) {
+            for (Hotel hotels : hotelList) {
+                fareCalculationForRegularCustomer(hotels, checkInDate, checkOutDate);
+            }
+        }
+
+        else {
+            for (Hotel hotels : hotelList) {
+                fareCalculationForRewardCustomer(hotels, checkInDate, checkOutDate);
+            }
+        }
+
+        Hotel cheapestHotel = hotelList.stream().min(Comparator.comparing(Hotel::getFareForTheStay)).orElseThrow(NoSuchFieldException::new);
+
+        Stream<Hotel> cheapestHotelStream = hotelList.stream().filter(hotel -> hotel.fareForTheStay == cheapestHotel.fareForTheStay);
+
+        cheapestBestRatedHotel = cheapestHotelStream.max(Comparator.comparing(Hotel::getRating)).orElseThrow(NoSuchFieldException::new);
+
+        System.out.println("\n\nTHE CHEAPEST BEST RATED HOTEL FOR YOUR STAY IS");
+        System.out.println(cheapestBestRatedHotel);
     }
 
-    public void fareCalculation(Hotel parameterHotel, LocalDate startDate, LocalDate endDate) {
+    public void fareCalculationForRewardCustomer(Hotel parameterHotel, LocalDate startDate, LocalDate endDate) {
+        parameterHotel.fareForTheStay = 0;
+        for (LocalDate currentDate = startDate; currentDate.getDayOfYear() <= endDate.getDayOfYear(); currentDate = currentDate.plusDays(1)) {
+            DayOfWeek currentDay = DayOfWeek.of(currentDate.get(ChronoField.DAY_OF_WEEK));
+            switch (currentDay) {
+
+                case SATURDAY:
+
+                case SUNDAY:
+                    parameterHotel.fareForTheStay = parameterHotel.fareForTheStay + parameterHotel.getRewardWeekendPrice();
+                    break;
+
+                default:
+                    parameterHotel.fareForTheStay = parameterHotel.fareForTheStay + parameterHotel.getRewardWeekdayPrice();
+                    break;
+
+            }
+        }
+    }
+
+    public void fareCalculationForRegularCustomer(Hotel parameterHotel, LocalDate startDate, LocalDate endDate) {
         parameterHotel.fareForTheStay = 0;
         for (LocalDate currentDate = startDate; currentDate.getDayOfYear() <= endDate.getDayOfYear(); currentDate = currentDate.plusDays(1)) {
             DayOfWeek currentDay = DayOfWeek.of(currentDate.get(ChronoField.DAY_OF_WEEK));

@@ -4,7 +4,7 @@ public class Hotel {
     public int weekdayPrice;
     public int weekendPrice;
     public int rewardWeekdayPrice;
-    public int RewardWeekendPrice;
+    public int rewardWeekendPrice;
     public int fareForTheStay;
 
     public String getHotelName() {
@@ -48,11 +48,11 @@ public class Hotel {
     }
 
     public int getRewardWeekendPrice() {
-        return RewardWeekendPrice;
+        return rewardWeekendPrice;
     }
 
     public void setRewardWeekendPrice(int rewardWeekendPrice) {
-        this.RewardWeekendPrice = rewardWeekendPrice;
+        this.rewardWeekendPrice = rewardWeekendPrice;
     }
 
     public int getFareForTheStay() {
@@ -62,6 +62,7 @@ public class Hotel {
     @Override
     public String toString() {
         return  "Hotel Name ='" + hotelName + '\'' +
-                ", fareForTheStay =" + fareForTheStay;
+                ", fareForTheStay =" + fareForTheStay +
+                ", Rating ="+rating;
     }
 }
