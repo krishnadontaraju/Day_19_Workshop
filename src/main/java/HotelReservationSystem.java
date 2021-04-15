@@ -11,8 +11,17 @@ public class HotelReservationSystem {
 
 
     public void findCheapestWithTwoDays() {
-        lakeWood.setHotelName("LAKE WOOD");
+        lakeWood.setHotelName("LAKE WOOD HOTEL");
         lakeWood.setWeekdayPrice(110);
+        lakeWood.setWeekendPrice(90);
+
+        bridgeWood.setHotelName("BRIDE WOOD RESORT");
+        bridgeWood.setWeekdayPrice(150);
+        bridgeWood.setWeekendPrice(50);
+
+        ridgeWood.setHotelName("RIDGE WOOD LUXURY MANEILA");
+        ridgeWood.setWeekdayPrice(220);
+        ridgeWood.setWeekendPrice(150);
 
         System.out.println("WELCOME TO THE HOTEL RESERVATION");
         System.out.println("WHEN DO YOU PLAN TO CHECK-IN ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
