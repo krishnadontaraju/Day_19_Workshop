@@ -20,7 +20,7 @@ public class HotelReservationSystem {
     Hotel ridgeWood = new Hotel();
 
 
-    public void findCheapestHotelWithInGivenTimeline() throws NoSuchFieldException {
+    public void findCheapestHotelWithInGivenTimeline() throws NoSuchFieldException,IllegalInputException {
         lakeWood.setHotelName("LAKE WOOD HOTEL");
         lakeWood.setWeekdayPrice(110);
         lakeWood.setWeekendPrice(90);
@@ -54,27 +54,49 @@ public class HotelReservationSystem {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
         checkInDate = LocalDate.parse(fetch.next(), dateFormat);
 
-        if(!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$",checkInDate.toString()))){
-            System.out.println("SORRY,YOUR CHECK IN DATE'sINPUT IS NOT VALID");
-            System.exit(0);
+        try {
+            if(!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$",checkInDate.toString())))
+                throw new IllegalInputException("YOUR CHECK IN DATE IS NOT CORRECT");
+            if (checkInDate.toString() == "")
+                throw new EmptyInputException("YOUR CHECK IN DATE IS EMPTY");
+            if (checkInDate == null)
+                throw new NullInputException("YOUR CHECK IN DATE IS NULL");
+        } catch (EmptyInputException e) {
+            e.printStackTrace();
+        } catch (NullInputException e) {
+            e.printStackTrace();
+        } catch (IllegalInputException e) {
+            e.printStackTrace();
         }
 
         System.out.println("WHEN DO YOU PLAN TO CHECK-OUT ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
         checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
 
-        if(!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$",checkInDate.toString()))){
-            System.out.println("SORRY,YOUR CHECK OUT DATE's INPUT IS NOT VALID");
-            System.exit(0);
+        try {
+        if(!(Pattern.matches("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$",checkOutDate.toString())))
+            throw new IllegalInputException("YOUR CHECKOUT DATE IS NOT CORRECT");
+            if (checkOutDate.toString() == "")
+                throw new EmptyInputException("YOUR CHECKOUT DATE IS EMPTY");
+            if (checkOutDate == null)
+                throw new NullInputException("YOUR CHECKOUT DATE IS NULL");
+        } catch (EmptyInputException e) {
+            e.printStackTrace();
+        } catch (NullInputException e) {
+            e.printStackTrace();
+        } catch (IllegalInputException e) {
+            e.printStackTrace();
         }
 
         System.out.println("WHICH CUSTOMER CATEGORY DO YOU BELONG TO ? \nREWARD OR REGULAR");
         customerType = fetch.next();
 
-        if(!(Pattern.matches("^[A-Za-z]{6,7}$",customerType))){
-            System.out.println("SORRY,YOUR CUSTOMER CATEGORY IS NOT VALID");
-            System.exit(0);
-        }
-        
+        if(!(Pattern.matches("^[A-Za-z]{6,7}$",customerType)))
+            try {
+                throw new IllegalInputException("YOUR CUSTOMER CATEGORY IS NOT APPROPRIATE");
+            } catch (IllegalInputException e) {
+                e.printStackTrace();
+            }
+
         if(customerType.toLowerCase(Locale.ROOT).equals("regular")) {
             for (Hotel hotels : hotelList) {
                 fareCalculationForRegularCustomer(hotels, checkInDate, checkOutDate);
