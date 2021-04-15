@@ -12,6 +12,7 @@ public class HotelReservationSystem {
     Scanner fetch = new Scanner(System.in);
 
     List<Hotel> hotelList = new ArrayList<>();
+    Hotel bestRatedHotel;
     Hotel cheapestBestRatedHotel;
     LocalDate checkInDate;
     LocalDate checkOutDate;
@@ -45,23 +46,19 @@ public class HotelReservationSystem {
         System.out.println("WHEN DO YOU PLAN TO CHECK-IN ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
-        checkInDate = LocalDate.parse(fetch.next(), dateFormat);
+//        checkInDate = LocalDate.parse(fetch.next(), dateFormat);
 
         System.out.println("WHEN DO YOU PLAN TO CHECK-OUT ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
-        checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
+//        checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
 
         for (Hotel hotels : hotelList) {
             fareCalculation(hotels, checkInDate, checkOutDate);
         }
 
-        Hotel cheapestHotel = hotelList.stream().min(Comparator.comparing(Hotel::getFareForTheStay)).orElseThrow(NoSuchFieldException::new);
+        bestRatedHotel = hotelList.stream().max(Comparator.comparing(Hotel::getRating)).orElseThrow(NoSuchFieldException::new);
 
-        Stream<Hotel> cheapestHotelStream = hotelList.stream().filter(hotel -> hotel.fareForTheStay == cheapestHotel.fareForTheStay);
-
-        cheapestBestRatedHotel = cheapestHotelStream.max(Comparator.comparing(Hotel::getRating)).orElseThrow(NoSuchFieldException::new);
-
-        System.out.println("\n\nTHE CHEAPEST BEST RATED HOTEL FOR YOUR STAY IS");
-        System.out.println(cheapestBestRatedHotel);
+        System.out.println("\n\nTHE BEST RATED HOTEL FOR YOUR STAY IS");
+        System.out.println(bestRatedHotel);
     }
 
     public void fareCalculation(Hotel parameterHotel, LocalDate startDate, LocalDate endDate) {
