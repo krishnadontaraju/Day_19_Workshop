@@ -2,15 +2,17 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class HotelReservationSystem {
     Scanner fetch = new Scanner(System.in);
 
     List<Hotel> hotelList = new ArrayList<>();
-    List<Hotel> cheapestHotelList;
+    Hotel cheapestBestRatedHotel;
     LocalDate checkInDate;
     LocalDate checkOutDate;
 
@@ -41,33 +43,32 @@ public class HotelReservationSystem {
 
         System.out.println("WELCOME TO THE HOTEL RESERVATION");
         System.out.println("WHEN DO YOU PLAN TO CHECK-IN ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
 
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
         checkInDate = LocalDate.parse(fetch.next(), dateFormat);
 
         System.out.println("WHEN DO YOU PLAN TO CHECK-OUT ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
-
         checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
 
         for (Hotel hotels : hotelList) {
-            fareCalculation(hotels,checkInDate,checkOutDate);
+            fareCalculation(hotels, checkInDate, checkOutDate);
         }
 
         Hotel cheapestHotel = hotelList.stream().min(Comparator.comparing(Hotel::getFareForTheStay)).orElseThrow(NoSuchFieldException::new);
 
         Stream<Hotel> cheapestHotelStream = hotelList.stream().filter(hotel -> hotel.fareForTheStay == cheapestHotel.fareForTheStay);
 
-        cheapestHotelList = cheapestHotelStream.collect(Collectors.toList());
+        cheapestBestRatedHotel = cheapestHotelStream.max(Comparator.comparing(Hotel::getRating)).orElseThrow(NoSuchFieldException::new);
 
-        System.out.println("\n\nTHE CHEAPEST HOTELS FOR YOUR STAY ARE : \n");
-        cheapestHotelList.stream().forEach(hotel -> System.out.println(hotel));
+        System.out.println("\n\nTHE CHEAPEST BEST RATED HOTEL FOR YOUR STAY IS");
+        System.out.println(cheapestBestRatedHotel);
     }
 
-    public void fareCalculation(Hotel parameterHotel, LocalDate startDate , LocalDate endDate){
+    public void fareCalculation(Hotel parameterHotel, LocalDate startDate, LocalDate endDate) {
         parameterHotel.fareForTheStay = 0;
-        for (LocalDate currentDate = startDate; currentDate.getDayOfYear() <= endDate.getDayOfYear() ; currentDate = currentDate.plusDays(1)) {
+        for (LocalDate currentDate = startDate; currentDate.getDayOfYear() <= endDate.getDayOfYear(); currentDate = currentDate.plusDays(1)) {
             DayOfWeek currentDay = DayOfWeek.of(currentDate.get(ChronoField.DAY_OF_WEEK));
-            switch (currentDay){
+            switch (currentDay) {
 
                 case SATURDAY:
 
