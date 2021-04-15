@@ -14,10 +14,27 @@ public class HotelReservationTest {
 
         try {
             newSystem.findCheapestHotelWithInGivenTimeline();
-        } catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException | IllegalInputException e) {
             e.printStackTrace();
         }
 
         Assertions.assertEquals(newSystem.cheapestBestRatedHotel,newSystem.ridgeWood);
+    }
+
+    @Test
+    public void givenIllegalInput_whenIllegal_shouldReturnException() throws IllegalInputException {
+        HotelReservationSystem newSystem = new HotelReservationSystem();
+        newSystem.checkInDate = LocalDate.parse("2020-09-11");
+        newSystem.checkOutDate = LocalDate.parse("2020-09-12");
+
+        newSystem.customerType = "rewardssss";
+
+        try {
+            newSystem.findCheapestHotelWithInGivenTimeline();
+        }
+        catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
     }
 }
