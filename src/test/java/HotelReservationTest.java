@@ -16,6 +16,6 @@ public class HotelReservationTest {
             e.printStackTrace();
         }
 
-        Assertions.assertEquals(newSystem.cheapestHotelList.size(),2);
+        Assertions.assertEquals(newSystem.cheapestBestRatedHotel,newSystem.bridgeWood);
     }
 }
