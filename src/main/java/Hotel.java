@@ -4,7 +4,7 @@ public class Hotel {
     public int weekdayPrice;
     public int weekendPrice;
     public int rewardWeekdayPrice;
-    public int getRewardWeekendPrice;
+    public int RewardWeekendPrice;
     public int fareForTheStay;
 
     public String getHotelName() {
@@ -47,12 +47,12 @@ public class Hotel {
         this.rewardWeekdayPrice = rewardWeekdayPrice;
     }
 
-    public int getGetRewardWeekendPrice() {
-        return getRewardWeekendPrice;
+    public int getRewardWeekendPrice() {
+        return RewardWeekendPrice;
     }
 
-    public void setGetRewardWeekendPrice(int getRewardWeekendPrice) {
-        this.getRewardWeekendPrice = getRewardWeekendPrice;
+    public void setRewardWeekendPrice(int rewardWeekendPrice) {
+        this.RewardWeekendPrice = rewardWeekendPrice;
     }
 
     public int getFareForTheStay() {

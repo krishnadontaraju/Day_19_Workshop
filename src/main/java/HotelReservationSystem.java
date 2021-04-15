@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class HotelReservationSystem {
     Scanner fetch = new Scanner(System.in);
 
     List<Hotel> hotelList = new ArrayList<>();
     Hotel bestRatedHotel;
-    Hotel cheapestBestRatedHotel;
     LocalDate checkInDate;
     LocalDate checkOutDate;
 
@@ -27,16 +25,22 @@ public class HotelReservationSystem {
         lakeWood.setWeekdayPrice(110);
         lakeWood.setWeekendPrice(90);
         lakeWood.setRating(3);
+        lakeWood.setRewardWeekdayPrice(80);
+        lakeWood.setRewardWeekendPrice(80);
 
         bridgeWood.setHotelName("BRIDE WOOD RESORT");
         bridgeWood.setWeekdayPrice(150);
         bridgeWood.setWeekendPrice(50);
         bridgeWood.setRating(4);
+        bridgeWood.setRewardWeekdayPrice(110);
+        bridgeWood.setRewardWeekendPrice(50);
 
         ridgeWood.setHotelName("RIDGE WOOD LUXURY MANEILA");
         ridgeWood.setWeekdayPrice(220);
         ridgeWood.setWeekendPrice(150);
         ridgeWood.setRating(5);
+        ridgeWood.setRewardWeekdayPrice(100);
+        ridgeWood.setRewardWeekendPrice(40);
 
         hotelList.add(lakeWood);
         hotelList.add(bridgeWood);
@@ -46,10 +50,10 @@ public class HotelReservationSystem {
         System.out.println("WHEN DO YOU PLAN TO CHECK-IN ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy");
-//        checkInDate = LocalDate.parse(fetch.next(), dateFormat);
+        checkInDate = LocalDate.parse(fetch.next(), dateFormat);
 
         System.out.println("WHEN DO YOU PLAN TO CHECK-OUT ? \nTYPE YOUR DATE IN THE FORMAT\n\nDD MMM YYYY\n");
-//        checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
+       checkOutDate = LocalDate.parse(fetch.next(), dateFormat);
 
         for (Hotel hotels : hotelList) {
             fareCalculation(hotels, checkInDate, checkOutDate);
@@ -80,6 +84,4 @@ public class HotelReservationSystem {
             }
         }
     }
-
-
 }
